@@ -1,7 +1,5 @@
 public class EmployeeWage{
 	public static void main(String args[]){
-		int is_full_time=1;
-		int is_part_time=2;
 
 		int WagePerHr = 20;
 		int HrsPerDay;
@@ -10,19 +8,21 @@ public class EmployeeWage{
 		System.out.println("*****Welcome to Employee Wage Computation Program*****");
 
 		double EmpCheck = Math.floor(Math.random() * 10) % 3;
+		int CheckEmp =(int) EmpCheck;//Type casting double to int for Emp attendance check
 
-		if(EmpCheck == is_full_time){
-			System.out.println("Full Time Employee is Present");
-			HrsPerDay=8;
-		}
-		else if(EmpCheck == is_part_time){
-			System.out.println("Part Time Employee is Present");
-			HrsPerDay=4;
-		}
-		else
-		{
-			System.out.println("Employee is absent");
-			HrsPerDay=0;
+		switch(CheckEmp){
+			case 1:
+				System.out.println("Full Time Employee and he is Present");
+				HrsPerDay=8;
+				break;
+			case 2:
+				System.out.println("Part Time Employee and he is Present");
+				HrsPerDay=4;
+				break;
+			default:
+				System.out.println("Employee is absent");
+				HrsPerDay=0;
+				break;
 		}
 		DailyWageSalary = WagePerHr * HrsPerDay;
 		System.out.println("Salary : "+DailyWageSalary);
