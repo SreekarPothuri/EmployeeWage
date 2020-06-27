@@ -5,13 +5,15 @@ public class EmployeeWage{
 		int HrsPerDay;
 		int DailyWage;
 
-		int WorkingDaysPerMonth=20;
-		int Days;
+		int WorkingDaysPerMonth = 20;
+		int WorkingHrsPerMonth = 100;
+		int Days=1;
 		int MonthlyWage=0;
+		int totalWorkingHrs=0;
 
 		System.out.println("*****Welcome to Employee Wage Computation Program*****");
 
-		for(Days=1; Days<=WorkingDaysPerMonth; Days++){
+		while(Days<=WorkingDaysPerMonth && totalWorkingHrs<=WorkingHrsPerMonth){
 
 			double EmpCheck = Math.floor(Math.random() * 10) % 3;
 			int CheckEmp =(int) EmpCheck;//Type casting double to int for Emp attendance check
@@ -33,7 +35,9 @@ public class EmployeeWage{
 			DailyWage = WagePerHr * HrsPerDay;
 			System.out.println("\t"+"Day#"+Days+"\t"+"Salary :"+DailyWage);
 			MonthlyWage = MonthlyWage + DailyWage;
+			totalWorkingHrs = totalWorkingHrs + HrsPerDay;
+			Days++;
 		}
-		System.out.println("Total monthly wage: "+MonthlyWage);
+		System.out.println("Total Working Hours:"+totalWorkingHrs+"\tTotal monthly wage: "+MonthlyWage);
 	}
 }
