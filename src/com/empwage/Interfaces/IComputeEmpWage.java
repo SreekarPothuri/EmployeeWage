@@ -2,5 +2,6 @@ package com.empwage.Interfaces;
 
 public interface IComputeEmpWage{
 	public void addCompanyEmpWage(String company, int WagePerHr, int WorkingDaysPerMonth, int WorkingHrsPerMonth);
-	public static void computeEmpWage();
+	public void computeEmpWage();
+	public int getTotalWage(String company);
 }
