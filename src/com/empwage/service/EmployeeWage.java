@@ -1,27 +1,38 @@
 package com.empwage.service;
+import java.util.*;
+import java.util.HashMap;
 import com.empwage.model.CompanyEmpWage;
 import com.empwage.Interfaces.IComputeEmpWage;
-public class EmployeeWage {
-	private static int numOfCompany = 0;
-	private static CompanyEmpWage[] companyEmpWageArray;
+public class EmployeeWage implements IComputeEmpWage {
+	private int numOfCompany = 0;
+	private LinkedList<CompanyEmpWage> companyEmpWageList;
+	private Map<String,CompanyEmpWage> companyToEmpWageMap;
 
 	public EmployeeWage(){
-		companyEmpWageArray = new CompanyEmpWage[5];
+		companyEmpWageList = new LinkedList<>();
+		companyToEmpWageMap = new Hashmap<>();
 	}
 
 	public void addCompanyEmpWage(String company,int WagePerHr, int WorkingDaysPerMonth, int WorkingHrsPerMonth){
-		companyEmpWageArray[numOfCompany] = new CompanyEmpWage(company,WagePerHr,WorkingDaysPerMonth,WorkingHrsPerMonth);
-		numOfCompany++;
+		CompanyEmpWage companyEmpWage  = new CompanyEmpWage(company,WagePerHr,WorkingDaysPerMonth,WorkingHrsPerMonth);
+		companyEmpWageList.add(companyEmpWage);
+		companyToEmpWageMap.put(company, companyEmpWage);
 	}
 
-	public static void computeEmpWage(){
-		for(int i=0; i<numOfCompany; i++){
-			companyEmpWageArray[i].setTotalEmpWage(computeEmpWage(companyEmpWageArray[i]));
-			System.out.println(companyEmpWageArray[i]);
+	public void computeEmpWage(){
+		for(int i=0; i< companyEmpWageList.size(); i++){
+			CompanyEmpWage companyEmpwage = companyEmpWageList.get(i);
+			companyEmpWage.setTotalEmpWage(this.computeEmpWage(companyEmpWage));
+			System.out.println(companyEmpWage);
 		}
 	}
 
-	public static int computeEmpWage(CompanyEmpWage companyEmpWage){
+	@Override
+	public int getTotalWage(String company){
+		return companyToEmpWageMap.get(company).MonthlyWage;
+	}
+
+	public int computeEmpWage(CompanyEmpWage companyEmpWage){
 		int HrsPerDay=0;
 		int DailyWage;
 		int totalWorkingHrs=0;
@@ -54,12 +65,11 @@ public class EmployeeWage {
 
 	public static void main(String args[]){
 		System.out.println("*****Welcome to Employee Wage Computation Program*****");
-		EmployeeWage empWage = new EmployeeWage();
+		IComputeEmpWage empWage = new EmployeeWage();
 		empWage.addCompanyEmpWage("Amazon",10,2,10);
 		empWage.addCompanyEmpWage("Netflix",20,4,20);
-		empWage.addCompanyEmpWage("Zee5",30,6,30);
-		empWage.addCompanyEmpWage("SonyLIV",40,8,40);
-		empWage.addCompanyEmpWage("Aha",50,10,50);
-		EmployeeWage.computeEmpWage();
+		empWage.computeEmpWage();
+		System.out.println("Total Wage for Amazon Company: "+empWage.getTotalWage("Amazon"));
+		System.out.println("Total Wage for Netflix Company: "+empWage.getTotalWage("Netflix"));
 	}
 }
