@@ -1,6 +1,7 @@
 package com.empwage.service;
 import com.empwage.model.CompanyEmpWage;
-public class EmployeeWage{
+import com.empwage.Interfaces.IComputeEmpWage;
+public class EmployeeWage {
 	private static int numOfCompany = 0;
 	private static CompanyEmpWage[] companyEmpWageArray;
 
@@ -13,7 +14,7 @@ public class EmployeeWage{
 		numOfCompany++;
 	}
 
-	private static void computeEmpWage(){
+	public static void computeEmpWage(){
 		for(int i=0; i<numOfCompany; i++){
 			companyEmpWageArray[i].setTotalEmpWage(computeEmpWage(companyEmpWageArray[i]));
 			System.out.println(companyEmpWageArray[i]);
